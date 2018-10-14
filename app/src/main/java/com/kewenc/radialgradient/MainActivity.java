@@ -9,6 +9,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RadialGradientView radialGradientView = new RadialGradientView(MainActivity.this);
-        setContentView(radialGradientView);
+//        setContentView(radialGradientView);
+
+        SweepGradientView sweepGradientView = new SweepGradientView(MainActivity.this);
+        setContentView(sweepGradientView);
     }
 }
