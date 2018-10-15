@@ -15,8 +15,8 @@ public class SweepGradientView extends View {
     private Paint paint;
     private SweepGradient sweepGradient;
     private float mAngle = 0;
-    private int[] colors = {Color.WHITE, Color.BLUE, Color.WHITE};
-    private float[] positions = {0f, 0.5f, 1f};
+    private int[] colors = {Color.RED, Color.BLUE, Color.RED, Color.BLUE, Color.RED};
+    private float[] positions = {0f, 0.5f, 1f, 1f};
     private float maxH;
     private RectF rectF;
     private float pding = 4;
@@ -59,7 +59,7 @@ public class SweepGradientView extends View {
 //        float centerY = canvasHeight / 2f;
 //        float radius = getWidth() / 2;
 //        canvas.save();
-        canvas.clipRect(rectF);
+//        canvas.clipRect(rectF);
 
         paint.setShader(sweepGradient);
         canvas.rotate(mAngle, getWidth() / 2, getHeight() / 2);
