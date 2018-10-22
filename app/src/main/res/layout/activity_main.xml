@@ -3,31 +3,45 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:background="#000000">
-    <com.kewenc.radialgradient.SweepGradientView
-        android:id="@+id/sgv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <RelativeLayout
-        android:id="@+id/contentLayout"
-        android:layout_margin="3dp"
+    android:background="#FFFFFF">
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF">
-        <!--<com.kewenc.radialgradient.MyClip-->
-            <!--android:visibility="gone"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
-        <com.kewenc.radialgradient.myView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-    <!--<TextView-->
-        <!--android:layout_margin="4dp"-->
-        <!--android:id="@+id/tv_rect"-->
+        android:text="Hello World !"
+        android:gravity="center"
+        android:textSize="20sp"/>
+
+    <com.kewenc.radialgradient.myView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+    <!--<com.kewenc.radialgradient.SweepGradientView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/sgv"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/contentLayout"-->
+        <!--android:layout_margin="3dp"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
-        <!--android:text="Hello World!"-->
-        <!--android:gravity="center"-->
-        <!--android:background="#FFFFFF"/>-->
+        <!--android:background="#00000000">-->
+        <!--&lt;!&ndash;<com.kewenc.radialgradient.MyClip&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="match_parent"/>&ndash;&gt;-->
+        <!--<com.kewenc.radialgradient.myView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+    <!--</RelativeLayout>-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_margin="4dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/tv_rect"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="Hello World!"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="#FFFFFF"/>&ndash;&gt;-->
 </RelativeLayout>

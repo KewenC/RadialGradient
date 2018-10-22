@@ -25,19 +25,21 @@ public class MainActivity extends AppCompatActivity {
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //        getWindow().setStatusBarColor(blackColor);
 //        getWindow().setNavigationBarColor(blackColor);
-        SweepGradientView sgv = findViewById(R.id.sgv);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
-                @Override
-                public void getOutline(View view, Outline outline) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        view.setClipToOutline(true);
-                        outline.setRoundRect(0,0, view.getWidth(),view.getHeight(),30);
-                    }
-                }
-            };
-            sgv.setOutlineProvider(viewOutlineProvider);
-        }
+
+//        SweepGradientView sgv = findViewById(R.id.sgv);
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
+//                @Override
+//                public void getOutline(View view, Outline outline) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        view.setClipToOutline(true);
+//                        outline.setRoundRect(0,0, view.getWidth(),view.getHeight(),30);
+//                    }
+//                }
+//            };
+//            sgv.setOutlineProvider(viewOutlineProvider);
+//        }
+
 //        TextView tv_rect = findViewById(R.id.tv_rect);
 //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
 //            ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
@@ -51,18 +53,19 @@ public class MainActivity extends AppCompatActivity {
 //            };
 //            tv_rect.setOutlineProvider(viewOutlineProvider);
 //        }
-        RelativeLayout contentLayout = findViewById(R.id.contentLayout);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
-                @Override
-                public void getOutline(View view, Outline outline) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        view.setClipToOutline(true);
-                        outline.setRoundRect(0,0,view.getWidth(),view.getHeight(),30);
-                    }
-                }
-            };
-            contentLayout.setOutlineProvider(viewOutlineProvider);
-        }
+
+//        RelativeLayout contentLayout = findViewById(R.id.contentLayout);
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//            ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
+//                @Override
+//                public void getOutline(View view, Outline outline) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        view.setClipToOutline(true);
+//                        outline.setRoundRect(0,0,view.getWidth(),view.getHeight(),30);
+//                    }
+//                }
+//            };
+//            contentLayout.setOutlineProvider(viewOutlineProvider);
+//        }
     }
 }
