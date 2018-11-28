@@ -3,13 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:background="#FFFFFF">
+    android:background="#ffffff">
 
     <TextView
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Hello World !"
         android:gravity="center"
+        android:textColor="#00ff00"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello World !"
+        android:gravity="center"
+        android:textColor="#00ff00"
         android:textSize="20sp"/>
 
     <com.kewenc.radialgradient.myView
