@@ -44,6 +44,7 @@ public class RadialGradientView extends View {
 	}
 
 	private void init() {
+//		effectiveRadius = DisplayUtil.dp2px(context, 32);
 		mShader = new SweepGradient(x, y, new int[] {Color.RED, Color.BLUE, Color.RED}, null);
 		mPaint.setShader(mShader);
 	}

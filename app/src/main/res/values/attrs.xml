@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SweepGradientView">
+        <attr name="baseRotate" format="integer"/>
+        <attr name="effectiveWidth" format="integer"/>
+    </declare-styleable>
+</resources>
