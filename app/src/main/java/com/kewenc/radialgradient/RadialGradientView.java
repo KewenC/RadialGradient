@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Shader;
@@ -14,12 +15,17 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
+
+import java.lang.reflect.Method;
 
 public class RadialGradientView extends View {
 
-	float effectiveWidth = 12;
+	float effectiveWidth = 20;
 	float effectiveRadius = 16;
 	float x = 530;
 	float y = 400;
@@ -27,48 +33,105 @@ public class RadialGradientView extends View {
 	private Shader mShader;
 	private float mRotate;
 	private Matrix mMatrix = new Matrix();
+	private Path path = new Path();
+	private RectF contentRectf = new RectF();
 
 	public RadialGradientView(Context context) {
 		super(context);
-		init();
+		init(context);
 	}
 
 	public RadialGradientView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init();
+		init(context);
 	}
 
 	public RadialGradientView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		init();
+		init(context);
 	}
 
-	private void init() {
+	/**
+	 * 获取屏幕真实的宽度
+	 * @param mWm
+	 * @param dm
+	 * @return
+	 */
+	private int getRealWidth(WindowManager mWm, DisplayMetrics dm){
+		int width;
+		Display display = mWm.getDefaultDisplay();
+		Point p = new Point();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			display.getRealSize(p);
+			width = p.x;
+		} else {
+			@SuppressWarnings("rawtypes")
+			Class c;
+			try {
+				c = Class.forName("android.view.Display");
+				@SuppressWarnings("unchecked")
+				Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+				method.invoke(display, dm);
+				width = dm.widthPixels;
+			} catch (Exception e) {
+				display.getSize(p);
+				width = p.x;
+			}
+		}
+		return width;
+	}
+
+	private void setWindowSize(Context context){
+		WindowManager mWm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		DisplayMetrics dm = new DisplayMetrics();
+		if (mWm == null) return;
+		Display display = mWm.getDefaultDisplay();
+		Point p = new Point();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			display.getRealSize(p);
+			y = p.y/2.0f;
+			x = p.x/2.0f;
+		} else {
+			@SuppressWarnings("rawtypes")
+			Class c;
+			try {
+				c = Class.forName("android.view.Display");
+				@SuppressWarnings("unchecked")
+				Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+				method.invoke(display, dm);
+				y = dm.heightPixels/2.0f;
+				x = dm.widthPixels/2.0f;
+			} catch (Exception e) {
+				display.getSize(p);
+				y = p.y/2.0f;
+				x = p.x/2.0f;
+			}
+		}
+	}
+
+	private void init(Context context) {
+		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1){
+			setLayerType(View.LAYER_TYPE_SOFTWARE, null);//修复Android 4.2(17)裁剪失效
+		}
+		setWindowSize(context);
 //		effectiveRadius = DisplayUtil.dp2px(context, 32);
 		mShader = new SweepGradient(x, y, new int[] {Color.RED, Color.BLUE, Color.RED}, null);
 		mPaint.setShader(mShader);
 	}
 
 
+
 	@Override
 		protected void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
 		canvas.save();
-
-		Path path = new Path();
-//		path.addRoundRect(new RectF(100, 1400, 500, 1800), 50, 20, Path.Direction.CW);
 		path.addRoundRect(new RectF(effectiveWidth,effectiveWidth,getWidth() - effectiveWidth,getHeight()-effectiveWidth),effectiveRadius,effectiveRadius,Path.Direction.CW);
-//		canvas.clipRect(16,16,getWidth() - 16,getHeight()-16,Region.Op.DIFFERENCE);
 		canvas.clipPath(path,Region.Op.DIFFERENCE);
 		//底层背景
-		canvas.drawColor(Color.BLACK);
+//		canvas.drawColor(Color.BLACK);
 		mMatrix.setRotate(mRotate, x, y);//旋转mRotate度,圆心为(x,y)
 		mShader.setLocalMatrix(mMatrix);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			canvas.drawRoundRect(0,0,getWidth(),getHeight(),effectiveRadius,effectiveRadius,mPaint);
-		} else {
-			canvas.drawRect(0,0,getWidth(),getHeight(),mPaint);
-		}
+		canvas.drawRoundRect(contentRectf,effectiveRadius,effectiveRadius,mPaint);
 
 		canvas.restore();
 
@@ -77,8 +140,6 @@ public class RadialGradientView extends View {
 			mRotate = 0;
 		}
 		invalidate();
-//		drawDiff(canvas);
-//		drawR(canvas);
         }
 
 	@Override
@@ -88,6 +149,10 @@ public class RadialGradientView extends View {
 //		y = getHeight() / 2;
 //		mShader = new SweepGradient(x, y, new int[] {Color.RED, Color.BLUE, Color.RED}, null);
 //		mPaint.setShader(mShader);
+		contentRectf.left = 0;
+		contentRectf.top = 0;
+		contentRectf.right = getWidth();
+		contentRectf.bottom = getHeight();
 	}
 
 	private void drawDiff(Canvas canvas) {

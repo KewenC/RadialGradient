@@ -5,6 +5,10 @@
     android:fitsSystemWindows="false"
     android:background="#7d7e95">
 
+    <com.kewenc.radialgradient.RadialGradientView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
@@ -21,12 +25,6 @@
         android:gravity="center"
         android:textColor="#00ffff"
         android:textSize="20sp"/>
-
-    <com.kewenc.radialgradient.RadialGradientView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
 
     <!--<com.kewenc.radialgradient.SweepGradientView-->
         <!--android:visibility="gone"-->
