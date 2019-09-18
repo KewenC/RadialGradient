@@ -2,6 +2,6 @@
 <resources>
     <declare-styleable name="SweepGradientView">
         <attr name="baseRotate" format="integer"/>
-        <attr name="effectiveWidth" format="integer"/>
+        <attr name="effectiveWidth2" format="integer"/>
     </declare-styleable>
 </resources>
