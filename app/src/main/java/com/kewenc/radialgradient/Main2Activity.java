@@ -1,9 +1,13 @@
 package com.kewenc.radialgradient;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.coocent.marquee.MarqueeEntity;
 import com.coocent.marquee.MarqueeLoader;
@@ -17,6 +21,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private MarqueeSweepGradientView mainSweView;
     private PathView pathView;
+//    private AnimView animView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +45,23 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         pathView = findViewById(R.id.pathView);
-        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (pathView.getVisibility() == View.VISIBLE){
-                    pathView.setVisibility(View.GONE);
-                } else pathView.setVisibility(View.VISIBLE);
-            }
-        });
+//        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (pathView.getVisibility() == View.VISIBLE){
+//                    pathView.setVisibility(View.GONE);
+//                } else pathView.setVisibility(View.VISIBLE);
+////                animView.changeAnimStatus();
+//            }
+//        });
+//        animView = findViewById(R.id.animView);
     }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+//        int tmp = windowManager.getDefaultDisplay().getRotation();
+//        Log.d("TAGF","Activity_onConfigurationChanged_tmp="+tmp);
+//    }
 }
