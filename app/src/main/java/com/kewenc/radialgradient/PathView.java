@@ -17,6 +17,8 @@ import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.coocent.marquee.ViewOrientationEventListener;
+
 /**
  * https://www.li-xyz.com/index.php/archives/2275/
  */
@@ -82,11 +84,36 @@ public class PathView extends View {
 //        pathIn.arcTo(endToBottomRectFIn,0,90);
 //        pathIn.arcTo(startToBottomRectFIn,90,90);
 
+        ViewOrientationEventListener viewOrientationEventListener = new ViewOrientationEventListener(context){
+            @Override
+            public void onOrientationChanged(int orientation) {
+                super.onOrientationChanged(orientation);
+            }
+        };
+
         mOrientationListener = new OrientationEventListener(context, SensorManager.SENSOR_DELAY_NORMAL){
 
             @Override
             public void onOrientationChanged(int orientation) {
-                Log.e("TAGF","orientation="+orientation);
+//                Log.e("TAGF","orientation="+orientation);
+
+                if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN) {
+                    return;  //手机平放时，检测不到有效的角度
+                }
+                //只检测是否有四个角度的改变
+                if (orientation > 350 || orientation < 10) { //0度
+                    orientation = 0;
+                } else if (orientation > 80 && orientation < 100) { //90度
+                    orientation = 90;
+                } else if (orientation > 170 && orientation < 190) { //180度
+                    orientation = 180;
+                } else if (orientation > 260 && orientation < 280) { //270度
+                    orientation = 270;
+                } else {
+                    return;
+                }
+
+                Log.e("TAGF ", "onOrientationChanged:" + orientation);
             }
         };
         if (mOrientationListener.canDetectOrientation()) {
@@ -166,12 +193,12 @@ public class PathView extends View {
 
         Log.d("TAGF","onDraw");
 
-        if (isCornerBlack){
-            canvas.save();
-            canvas.clipPath(pathOut,Region.Op.DIFFERENCE);
-            canvas.drawColor(Color.BLACK);
-            canvas.restore();
-        }
+//        if (isCornerBlack){
+//            canvas.save();
+//            canvas.clipPath(pathOut,Region.Op.DIFFERENCE);
+//            canvas.drawColor(Color.BLACK);
+//            canvas.restore();
+//        }
 
         canvas.save();
         canvas.clipPath(pathOut);

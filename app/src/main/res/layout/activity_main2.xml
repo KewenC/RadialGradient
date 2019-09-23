@@ -25,7 +25,6 @@
 <!--        android:textSize="50sp"-->
 <!--        android:textColor="#00ff00"/>-->
     <com.kewenc.radialgradient.PathView
-        android:layout_margin="100dp"
         android:id="@+id/pathView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
