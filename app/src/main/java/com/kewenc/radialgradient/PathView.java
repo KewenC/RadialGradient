@@ -1,7 +1,6 @@
 package com.kewenc.radialgradient;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
-import com.coocent.marquee.ViewOrientationEventListener;
 
 /**
  * https://www.li-xyz.com/index.php/archives/2275/
