@@ -21,6 +21,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private MarqueeSweepGradientView mainSweView;
     private PathView pathView;
+//    private MyOrientationEventListener myOrientationEventListener;
 //    private AnimView animView;
 
     @Override
@@ -55,6 +56,14 @@ public class Main2Activity extends AppCompatActivity {
 //            }
 //        });
 //        animView = findViewById(R.id.animView);
+
+//        myOrientationEventListener = new MyOrientationEventListener() {
+//            @Override
+//            public void onOrientationChanged(int orientation) {
+//
+//            }
+//        };
+//        myOrientationEventListener.enable();
     }
 
 //    @Override
@@ -64,4 +73,11 @@ public class Main2Activity extends AppCompatActivity {
 //        int tmp = windowManager.getDefaultDisplay().getRotation();
 //        Log.d("TAGF","Activity_onConfigurationChanged_tmp="+tmp);
 //    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        myOrientationEventListener.disable();
+    }
 }
