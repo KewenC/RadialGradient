@@ -10,6 +10,7 @@ import android.graphics.Region;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -17,6 +18,8 @@ import android.view.WindowManager;
  * https://www.li-xyz.com/index.php/archives/2275/
  */
 public class PathView extends View implements ViewOrientationEventListener.OnOrientationListener{
+
+    private static final String TAG = "PathView";
 
     private final Context context;
     private final ViewOrientationEventListener viewOrientationEventListener;
@@ -85,13 +88,13 @@ public class PathView extends View implements ViewOrientationEventListener.OnOri
             viewOrientationEventListener.disable();
         }
 
-//        mOrientationListener = new OrientationEventListener(context, SensorManager.SENSOR_DELAY_NORMAL){
+//        mOrientationListener = new MyOrientationEventListener(context, SensorManager.SENSOR_DELAY_NORMAL){
 //
 //            @Override
 //            public void onOrientationChanged(int orientation) {
 ////                Log.e("TAGF","orientation="+orientation);
 //
-//                if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN) {
+//                if (orientation == MyOrientationEventListener.ORIENTATION_UNKNOWN) {
 //                    return;  //手机平放时，检测不到有效的角度
 //                }
 //                //只检测是否有四个角度的改变
@@ -116,37 +119,52 @@ public class PathView extends View implements ViewOrientationEventListener.OnOri
     @Override
     public void onOrientationChanged(int orientation) {
         Log.e("TAGF","onOrientationChanged_orientation="+orientation);
+        switch (orientation){
+            case Surface.ROTATION_0:
+                setRectF(startToTopRectFOut,0,0,TopOut);
+                setRectF(endToTopRectFOut,getWidth()-TopOut,0,TopOut);
+                setRectF(endToBottomRectFOut,getWidth()-BottomOut,getHeight()-BottomOut,BottomOut);
+                setRectF(startToBottomRectFOut,0,getHeight()-BottomOut,BottomOut);
 
-    }
+                setRectF(startToTopRectFIn,width,width,TopIn);
+                setRectF(endToTopRectFIn,getWidth()-TopIn-width,width,TopIn);
+                setRectF(endToBottomRectFIn,getWidth()-BottomIn-width,getHeight()-BottomIn-width,BottomIn);
+                setRectF(startToBottomRectFIn,width,getHeight()-BottomIn-width,BottomIn);
+                break;
+            case Surface.ROTATION_90:
+                setRectF(startToTopRectFOut,0,0,TopOut);
+                setRectF(endToTopRectFOut,getWidth()-BottomOut,0,BottomOut);
+                setRectF(endToBottomRectFOut,getWidth()-BottomOut,getHeight()-BottomOut,BottomOut);
+                setRectF(startToBottomRectFOut,0,getHeight()-TopOut,TopOut);
 
-    private void setRectF(RectF rectF, float left, float top, float length) {
-        rectF.left = left;
-        rectF.top = top;
-        rectF.right = rectF.left + length;
-        rectF.bottom = rectF.top + length;
-    }
+                setRectF(startToTopRectFIn,width,width,TopIn);
+                setRectF(endToTopRectFIn,getWidth()-BottomIn-width,width,BottomIn);
+                setRectF(endToBottomRectFIn,getWidth()-BottomIn-width,getHeight()-BottomIn-width,BottomIn);
+                setRectF(startToBottomRectFIn,width,getHeight()-TopIn-width,TopIn);
+                break;
+            case Surface.ROTATION_180:
+                setRectF(startToTopRectFOut,0,0,BottomOut);
+                setRectF(endToTopRectFOut,getWidth()-BottomOut,0,BottomOut);
+                setRectF(endToBottomRectFOut,getWidth()-TopOut,getHeight()-TopOut,TopOut);
+                setRectF(startToBottomRectFOut,0,getHeight()-TopOut,TopOut);
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-//        Log.e("TAGF","onSizeChanged_"+w+"_"+h+"_"+oldw+"_"+oldh);
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        int tmp = windowManager.getDefaultDisplay().getRotation();
-        Log.e("TAGF","onSizeChanged_方向"+tmp);
+                setRectF(startToTopRectFIn,width,width,BottomIn);
+                setRectF(endToTopRectFIn,getWidth()-BottomIn-width,width,BottomIn);
+                setRectF(endToBottomRectFIn,getWidth()-TopIn-width,getHeight()-TopIn-width,TopIn);
+                setRectF(startToBottomRectFIn,width,getHeight()-TopIn-width,TopIn);
+                break;
+            case Surface.ROTATION_270:
+                setRectF(startToTopRectFOut,0,0,BottomOut);
+                setRectF(endToTopRectFOut,getWidth()-TopOut,0,TopOut);
+                setRectF(endToBottomRectFOut,getWidth()-TopOut,getHeight()-TopOut,TopOut);
+                setRectF(startToBottomRectFOut,0,getHeight()-BottomOut,BottomOut);
 
-        if (tmp == 0){
-            paintHelper.setColor(Color.RED);
-        } else paintHelper.setColor(Color.BLUE);
-
-        setRectF(startToTopRectFOut,0,0,TopOut);
-        setRectF(endToTopRectFOut,getWidth()-TopOut,0,TopOut);
-        setRectF(endToBottomRectFOut,getWidth()-BottomOut,getHeight()-BottomOut,BottomOut);
-        setRectF(startToBottomRectFOut,0,getHeight()-BottomOut,BottomOut);
-
-        setRectF(startToTopRectFIn,width,width,TopIn);
-        setRectF(endToTopRectFIn,getWidth()-TopIn-width,width,TopIn);
-        setRectF(endToBottomRectFIn,getWidth()-BottomIn-width,getHeight()-BottomIn-width,BottomIn);
-        setRectF(startToBottomRectFIn,width,getHeight()-BottomIn-width,BottomIn);
+                setRectF(startToTopRectFIn,width,width,BottomIn);
+                setRectF(endToTopRectFIn,getWidth()-TopIn-width,width,TopIn);
+                setRectF(endToBottomRectFIn,getWidth()-TopIn-width,getHeight()-TopIn-width,TopIn);
+                setRectF(startToBottomRectFIn,width,getHeight()-BottomIn-width,BottomIn);
+                break;
+        }
 
         pathOut.reset();
         pathOut.addArc(startToTopRectFOut,-180,90);
@@ -159,6 +177,54 @@ public class PathView extends View implements ViewOrientationEventListener.OnOri
         pathIn.arcTo(endToTopRectFIn,-90,90);
         pathIn.arcTo(endToBottomRectFIn,0,90);
         pathIn.arcTo(startToBottomRectFIn,90,90);
+
+        invalidate();
+    }
+
+    private void setRectF(RectF rectF, float left, float top, float length) {
+        rectF.left = left;
+        rectF.top = top;
+        rectF.right = rectF.left + length;
+        rectF.bottom = rectF.top + length;
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        Log.e("TAGF","onSizeChanged_"+w+"_"+h+"_"+oldw+"_"+oldh);
+//        if (oldw == 0 && oldh == 0){
+            Log.e("TAGF","init PathView");
+            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            if (windowManager != null){
+                onOrientationChanged(windowManager.getDefaultDisplay().getRotation());
+            }
+//        }
+
+//        if (tmp == 0){
+//            paintHelper.setColor(Color.RED);
+//        } else paintHelper.setColor(Color.BLUE);
+//
+//        setRectF(startToTopRectFOut,0,0,TopOut);
+//        setRectF(endToTopRectFOut,getWidth()-TopOut,0,TopOut);
+//        setRectF(endToBottomRectFOut,getWidth()-BottomOut,getHeight()-BottomOut,BottomOut);
+//        setRectF(startToBottomRectFOut,0,getHeight()-BottomOut,BottomOut);
+//
+//        setRectF(startToTopRectFIn,width,width,TopIn);
+//        setRectF(endToTopRectFIn,getWidth()-TopIn-width,width,TopIn);
+//        setRectF(endToBottomRectFIn,getWidth()-BottomIn-width,getHeight()-BottomIn-width,BottomIn);
+//        setRectF(startToBottomRectFIn,width,getHeight()-BottomIn-width,BottomIn);
+//
+//        pathOut.reset();
+//        pathOut.addArc(startToTopRectFOut,-180,90);
+//        pathOut.arcTo(endToTopRectFOut,-90,90);
+//        pathOut.arcTo(endToBottomRectFOut,0,90);
+//        pathOut.arcTo(startToBottomRectFOut,90,90);
+//
+//        pathIn.reset();
+//        pathIn.addArc(startToTopRectFIn,-180,90);
+//        pathIn.arcTo(endToTopRectFIn,-90,90);
+//        pathIn.arcTo(endToBottomRectFIn,0,90);
+//        pathIn.arcTo(startToBottomRectFIn,90,90);
     }
 
 //    @Override
