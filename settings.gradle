@@ -1,4 +1,4 @@
 include ':app'
 
 include(':Marquee')
-project(':Marquee').projectDir = new File('F:\\_KewenC\\Test Projects\\Marquee')
+project(':Marquee').projectDir = new File('E:\\KewenCAndroid\\Marquee\\Marquee')
